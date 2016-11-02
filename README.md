@@ -1,3 +1,15 @@
+# Bayes Impact's Meme Generator Bot
+
+Use the bot anywhere in Slack:
+```
+/meme
+```
+(shows a help page with all commands)
+
+Want to preview the memes? Check out [go/memes](http://go/memes)
+
+# Original slack-meme README below:
+----------------
 # slack-meme
 Post memes to any of your Slack channels with a slash command.
 
