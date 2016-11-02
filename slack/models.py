@@ -48,13 +48,14 @@ class Memegen:
 
     def help(self):
         return "\n".join([
-            "Welcome to Slack Meme!",
-            'Check me out on <https://github.com/nicolewhite/slack-meme|GitHub>.',
-            "**> Commands:**",
-            "* `/meme template_name;top_row;bottom_row` generate a meme",
-            "    (NOTE: template_name can also be a URL to an image)",
-            "* `/meme templates` View templates",
-            "* `/meme help` Shows this menu"
+            "Welcome to Bayes's Memebot (<https://github.com/bayesimpact/slack-meme|GitHub>), forked from <https://github.com/nicolewhite/slack-meme|Slack Meme>",
+            "For previews of meme templates, head to <https://go/memes|go/memes>",
+            "",
+            "> Usage:",
+            "> `/meme template_name;top_row;bottom_row` generate a meme",
+            ">  (NOTE: template_name can also be a URL to an image)",
+            "> `/meme templates` View templates",
+            "> `/meme help` or just `/meme` Shows this menu",
         ])
 
 
@@ -90,16 +91,12 @@ class Slack:
 
 def parse_text_into_params(text):
     text = unquote_plus(text).strip()
-    text = text[:-1] if text[-1] == ";" else text
 
-    params = text.split(";")
+    params = [x.strip() for x in text.split(";")]
+    if len(params) != 3:
+        raise ValueError
 
-    template = params[0].strip()
-    del params[0]
-
-    params = [x.strip() for x in params]
     params = [x.replace(" ", "_") for x in params]
     params = [quote(x.encode("utf8")) for x in params]
 
-    params += [None] * (2 - len(params))
-    return template, params[0], params[1]
+    return params

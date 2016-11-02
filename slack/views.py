@@ -27,7 +27,10 @@ def meme():
     if text.lower() == "templates":
         return memegen.list_templates()
 
-    template, top, bottom = parse_text_into_params(text)
+    try:
+        template, top, bottom = parse_text_into_params(text)
+    except ValueError:
+        return "Bad command: `%s`\n" % text + memegen.help()
 
     valid_templates = [x[0] for x in memegen.get_templates()]
 
